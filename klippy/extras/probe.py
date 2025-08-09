@@ -471,7 +471,12 @@ class ProbePointsHelper:
         if self.use_offsets:
             nextpos[0] -= self.probe_offsets[0]
             nextpos[1] -= self.probe_offsets[1]
-        self._move(nextpos, self.speed)
+        # move 5 ahead of x pos
+        self._move([nextpos[0]+5,nextpos[1]], self.speed)
+        # move back to 2 ahead of x pos at half speed
+        self._move([nextpos[0]+2,nextpos[1]], self.speed/2)
+        # move to defined probe point at third speed
+        self._move(nextpos, self.speed/3)
     def start_probe(self, gcmd):
         manual_probe.verify_no_manual_probe(self.printer)
         # Lookup objects
